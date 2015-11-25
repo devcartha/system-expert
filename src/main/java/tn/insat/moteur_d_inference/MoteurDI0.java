@@ -163,7 +163,7 @@ public class MoteurDI0 {
         return null;
     }
 
-    public String chainageMixte(ArrayList<Fait> baseFaits, ArrayList<Regle> baseRegles, int modeResolutioConflit, Proposition but, JTextField input, JTextArea output) throws Exception {
+    public String chainageMixte(ArrayList<Fait> baseFaits, ArrayList<Regle> baseRegles, int modeResolutioConflit, Proposition but, JTextArea output) throws Exception {
         String trace = "";
         ArrayList<String> questions = new ArrayList<String>();
         while (true) {
@@ -174,7 +174,7 @@ public class MoteurDI0 {
                     Fait faitDemandable = null;
                     Proposition proposition = getPremisseInconnue(regle, baseFaits);
                     questions.add(proposition.getNom());
-                    String reponse = poserQuestion(proposition, input);
+                    String reponse = poserQuestion(proposition, output);
 
                     if (reponse.toUpperCase().equals("OUI")) {
                         faitDemandable = new Fait(proposition.getNom(), "true", "-1");
@@ -191,11 +191,9 @@ public class MoteurDI0 {
                     }
 
                 } else {
-                    output.append("But non trouvé \n");
                     break;
                 }
             } else if (!terminal(but, baseRegles)) {
-                output.append("But non trouvé \n");
                 break;
             } else if (resultat.contains("But trouvé")) {
                 break;
@@ -204,14 +202,16 @@ public class MoteurDI0 {
         return trace;
     }
 
-    private String poserQuestion(Proposition proposition, JTextField input) {
-        Scanner sc = new Scanner(System.in);
+    private String poserQuestion(Proposition proposition, JTextArea output) {
         String reponse;
         do {
-            System.out.println(proposition.getNom() + " ? : OUI/NON/INCONNU");
-            reponse = sc.next();
+            output.append(proposition.getNom() + " ? : OUI/NON/INCONNU \n");
+            reponse = JOptionPane.showInputDialog(null, proposition.getNom() + " ? : Oui / Non / Inconnu");
+            output.append(reponse + "\n");
         }
         while (!reponse.toUpperCase().equals("OUI") && !reponse.toUpperCase().equals("NON") && !reponse.toUpperCase().equals("INCONNU"));
         return reponse;
     }
+
+
 }

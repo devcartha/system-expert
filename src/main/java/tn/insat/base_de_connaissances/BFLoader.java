@@ -2,6 +2,7 @@ package tn.insat.base_de_connaissances;
 
 import tn.insat.structure.Fait;
 
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -18,9 +19,8 @@ public class BFLoader {
         return baseDeFaits;
     }
 
-    public void setBaseDeFaits(String cheminBF) throws IOException {
+    public void setBaseDeFaits(File f ) throws IOException {
         this.baseDeFaits = new ArrayList<Fait>();
-        File f = new File(cheminBF);
         FileReader fr = new FileReader(f);
         BufferedReader br = new BufferedReader(fr);
 
@@ -43,8 +43,8 @@ public class BFLoader {
         br.close();
     }
 
-    public void afficherBF() {
+    public void afficherBF(JTextArea output) {
         for (Fait fait : this.baseDeFaits)
-            System.out.println(fait);
+            output.append(fait+"\n");
     }
 }

@@ -1,0 +1,233 @@
+JFDML JFormDesigner: "5.2.2.2.228" Java: "1.8.0_51" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class com.intellij.uiDesigner.core.GridLayoutManager ) {
+			"$columnCount": 1
+			"$rowCount": 7
+		} ) {
+			name: "this"
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.intellij.uiDesigner.core.GridLayoutManager ) {
+				"$columnCount": 2
+				"$rowCount": 1
+			} ) {
+				name: "Input"
+				auxiliary() {
+					"JavaCodeGenerator.variableName": "inputPnl"
+				}
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "ButLbl"
+					"text": "But : "
+					auxiliary() {
+						"JavaCodeGenerator.variableName": "butLbl"
+					}
+				}, new FormLayoutConstraints( class com.intellij.uiDesigner.core.GridConstraints ) {
+					"fill": 1
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "ButTF"
+					auxiliary() {
+						"JavaCodeGenerator.variableName": "butTF"
+					}
+				}, new FormLayoutConstraints( class com.intellij.uiDesigner.core.GridConstraints ) {
+					"column": 1
+					"fill": 1
+				} )
+			}, new FormLayoutConstraints( class com.intellij.uiDesigner.core.GridConstraints ) {
+				"fill": 3
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.intellij.uiDesigner.core.GridLayoutManager ) {
+				"$columnCount": 2
+				"$rowCount": 1
+			} ) {
+				name: "File"
+				auxiliary() {
+					"JavaCodeGenerator.variableName": "filePnl"
+				}
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "BaseFaitBtn"
+					"text": "Choisir la base de faits"
+					auxiliary() {
+						"JavaCodeGenerator.variableName": "baseFaitBtn"
+					}
+					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "BaseFaitBtnMouseClicked", true ) )
+				}, new FormLayoutConstraints( class com.intellij.uiDesigner.core.GridConstraints ) )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "BaseRegleBtn"
+					"text": "Choisir la base de regles"
+					auxiliary() {
+						"JavaCodeGenerator.variableName": "baseRegleBtn"
+					}
+					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "BaseRegleBtnMouseClicked", true ) )
+				}, new FormLayoutConstraints( class com.intellij.uiDesigner.core.GridConstraints ) {
+					"column": 1
+				} )
+			}, new FormLayoutConstraints( class com.intellij.uiDesigner.core.GridConstraints ) {
+				"row": 2
+				"fill": 3
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.intellij.uiDesigner.core.GridLayoutManager ) {
+				"$columnCount": 2
+				"$rowCount": 1
+			} ) {
+				name: "BaseConnaissance"
+				auxiliary() {
+					"JavaCodeGenerator.variableName": "baseConnaissancePnl"
+				}
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "AfficherBaseFaitBtn"
+					"text": "Afficher la base de faits"
+					auxiliary() {
+						"JavaCodeGenerator.variableName": "afficherBaseFaitBtn"
+					}
+					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "AfficherBaseFaitBtnMouseClicked", true ) )
+				}, new FormLayoutConstraints( class com.intellij.uiDesigner.core.GridConstraints ) )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "AfficherBaseRegleBtn"
+					"text": "Afficher la base de regles"
+					auxiliary() {
+						"JavaCodeGenerator.variableName": "afficherBaseRegleBtn"
+					}
+					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "AfficherBaseRegleBtnMouseClicked", true ) )
+				}, new FormLayoutConstraints( class com.intellij.uiDesigner.core.GridConstraints ) {
+					"column": 1
+				} )
+			}, new FormLayoutConstraints( class com.intellij.uiDesigner.core.GridConstraints ) {
+				"row": 3
+				"fill": 3
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.intellij.uiDesigner.core.GridLayoutManager ) {
+				"$columnCount": 2
+				"$rowCount": 2
+			} ) {
+				name: "ModeChainage"
+				auxiliary() {
+					"JavaCodeGenerator.variableName": "modeChainagePnl"
+				}
+				add( new FormComponent( "javax.swing.JRadioButton" ) {
+					name: "SaturationRB"
+					"text": "Saturer la base de faits"
+					"$buttonGroup": new FormReference( "ModeChainageGrp" )
+					auxiliary() {
+						"JavaCodeGenerator.variableName": "saturationRB"
+					}
+				}, new FormLayoutConstraints( class com.intellij.uiDesigner.core.GridConstraints ) {
+					"anchor": 8
+				} )
+				add( new FormComponent( "javax.swing.JRadioButton" ) {
+					name: "SelectionPremiereRegleRB"
+					"text": "Selection de la premiere regle"
+					"$buttonGroup": new FormReference( "ModeResolutionConflitGrp" )
+					auxiliary() {
+						"JavaCodeGenerator.variableName": "selectionPremiereRegleRB"
+					}
+				}, new FormLayoutConstraints( class com.intellij.uiDesigner.core.GridConstraints ) {
+					"column": 1
+					"anchor": 8
+				} )
+				add( new FormComponent( "javax.swing.JRadioButton" ) {
+					name: "ArretSurButRB"
+					"text": "S'arreter si le but est atteint"
+					"$buttonGroup": new FormReference( "ModeChainageGrp" )
+					auxiliary() {
+						"JavaCodeGenerator.variableName": "arretSurButRB"
+					}
+				}, new FormLayoutConstraints( class com.intellij.uiDesigner.core.GridConstraints ) {
+					"row": 1
+					"anchor": 8
+				} )
+				add( new FormComponent( "javax.swing.JRadioButton" ) {
+					name: "SelectionRegleAyantPlusPremisseRB"
+					"text": "Selection de la regle ayant le plus de premisses"
+					"$buttonGroup": new FormReference( "ModeResolutionConflitGrp" )
+					auxiliary() {
+						"JavaCodeGenerator.variableName": "selectionRegleAyantPlusPremisseRB"
+					}
+				}, new FormLayoutConstraints( class com.intellij.uiDesigner.core.GridConstraints ) {
+					"column": 1
+					"row": 1
+					"anchor": 8
+				} )
+			}, new FormLayoutConstraints( class com.intellij.uiDesigner.core.GridConstraints ) {
+				"row": 4
+				"fill": 3
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.intellij.uiDesigner.core.GridLayoutManager ) {
+				"$columnCount": 2
+				"$rowCount": 1
+			} ) {
+				name: "Action"
+				auxiliary() {
+					"JavaCodeGenerator.variableName": "actionPnl"
+				}
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "ChainageAvantBtn"
+					"text": "Chainage avant"
+					auxiliary() {
+						"JavaCodeGenerator.variableName": "chainageAvantBtn"
+					}
+					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "ChainageAvantBtnMouseClicked", true ) )
+				}, new FormLayoutConstraints( class com.intellij.uiDesigner.core.GridConstraints ) )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "ChainageMixteBtn"
+					"text": "Chainage mixte"
+					auxiliary() {
+						"JavaCodeGenerator.variableName": "chainageMixteBtn"
+					}
+					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "ChainageMixteBtnMouseClicked", true ) )
+				}, new FormLayoutConstraints( class com.intellij.uiDesigner.core.GridConstraints ) {
+					"column": 1
+				} )
+			}, new FormLayoutConstraints( class com.intellij.uiDesigner.core.GridConstraints ) {
+				"row": 5
+				"fill": 3
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.intellij.uiDesigner.core.GridLayoutManager ) {
+				"$columnCount": 1
+				"$rowCount": 1
+			} ) {
+				name: "Output"
+				auxiliary() {
+					"JavaCodeGenerator.variableName": "outputPnl"
+				}
+				add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+					name: "OutputScroll"
+					auxiliary() {
+						"JavaCodeGenerator.variableName": "outputSPnl"
+					}
+					add( new FormComponent( "javax.swing.JTextArea" ) {
+						name: "TraceTA"
+						auxiliary() {
+							"JavaCodeGenerator.variableName": "traceTA"
+						}
+					} )
+				}, new FormLayoutConstraints( class com.intellij.uiDesigner.core.GridConstraints ) {
+					"fill": 3
+				} )
+			}, new FormLayoutConstraints( class com.intellij.uiDesigner.core.GridConstraints ) {
+				"row": 6
+				"fill": 3
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 550, 445 )
+		} )
+		add( new FormNonVisual( "javax.swing.ButtonGroup" ) {
+			name: "ModeChainageGrp"
+			auxiliary() {
+				"JavaCodeGenerator.variableName": "modeChainageGrp"
+			}
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 455 )
+		} )
+		add( new FormNonVisual( "javax.swing.ButtonGroup" ) {
+			name: "ModeResolutionConflitGrp"
+			auxiliary() {
+				"JavaCodeGenerator.variableName": "modeResolutionConflitGrp"
+			}
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 509 )
+		} )
+	}
+}

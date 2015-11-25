@@ -2,6 +2,7 @@ package tn.insat.base_de_connaissances;
 
 import tn.insat.structure.*;
 
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -18,10 +19,9 @@ public class BRLoader {
         return baseDeRegles;
     }
 
-    public void setBaseDeRegles(String cheminBR) throws IOException {
+    public void setBaseDeRegles(File f) throws IOException {
 
         this.baseDeRegles = new ArrayList<Regle>();
-        File f = new File(cheminBR);
         FileReader fr = new FileReader(f);
         BufferedReader br = new BufferedReader(fr);
 
@@ -60,8 +60,8 @@ public class BRLoader {
         }
     }
 
-    public void afficherBR() {
+    public void afficherBR(JTextArea output) {
         for (Regle regle : this.baseDeRegles)
-            System.out.println(regle);
+            output.append(regle+"\n");
     }
 }
