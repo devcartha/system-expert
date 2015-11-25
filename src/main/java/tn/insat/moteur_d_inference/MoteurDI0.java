@@ -4,6 +4,7 @@ import tn.insat.structure.Fait;
 import tn.insat.structure.Proposition;
 import tn.insat.structure.Regle;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -24,27 +25,32 @@ public class MoteurDI0 {
         ARRET_SI_UN_BUT_EST_PRECISE = 1;
     }
 
-    public String chainageAvant(ArrayList<Fait> baseFaits, ArrayList<Regle> baseRegles, int modeChainage, int modeResolutioConflit, Proposition but) throws Exception {
+    public String chainageAvant(ArrayList<Fait> baseFaits, ArrayList<Regle> baseRegles, int modeChainage, int modeResolutioConflit, Proposition but, JTextArea output) throws Exception {
+        String trace = "";
         ArrayList<Regle> ensembleConflit;
         if (modeChainage == MoteurDI0.ARRET_SI_UN_BUT_EST_PRECISE) {
             boolean trouve = (appartient(but, baseFaits) == 0);
             do {
                 if (trouve) {
-                    return "But trouvé : " + but;
+                    trace += "But trouvé : " + but;
+                    return trace;
                 }
                 ensembleConflit = this.getEnsembleConflit(baseFaits, baseRegles);
                 if (modeResolutioConflit == MoteurDI0.SELECTION_REGLE_AYANT_LE_PLUS_DE_PREMISSES)
                     Collections.sort(ensembleConflit);
                 for (int i = 0; i < ensembleConflit.size(); i++) {
                     Regle regle = ensembleConflit.get(i);
-                    System.out.println(declencherRegle(regle, baseRegles, baseFaits));
+                    trace += declencherRegle(regle, baseRegles, baseFaits) + "\n";
                     trouve = (appartient(but, baseFaits) == 0);
                 }
             } while (!ensembleConflit.isEmpty() && !trouve);
-            if (trouve)
-                return "But trouvé : " + but;
-            else
-                return "But non trouvé";
+            if (trouve) {
+                trace += "But trouvé : " + but;
+                return trace;
+            } else {
+                trace += "But non trouvé";
+                return trace;
+            }
         } else if (modeChainage == MoteurDI0.SATURATION_DE_LA_BASE_DE_FAITS) {
             do {
                 ensembleConflit = this.getEnsembleConflit(baseFaits, baseRegles);
@@ -52,11 +58,12 @@ public class MoteurDI0 {
                     Collections.sort(ensembleConflit);
                 for (int i = 0; i < ensembleConflit.size(); i++) {
                     Regle regle = ensembleConflit.get(i);
-                    System.out.println(declencherRegle(regle, baseRegles, baseFaits));
+                    trace += declencherRegle(regle, baseRegles, baseFaits) + "\n";
                 }
             } while (!ensembleConflit.isEmpty());
         }
-        return "Base saturée";
+        trace += "Base saturée";
+        return trace;
     }
 
     public ArrayList<Regle> getEnsembleConflit(ArrayList<Fait> baseFaits, ArrayList<Regle> baseRegles) {
@@ -151,18 +158,19 @@ public class MoteurDI0 {
         return null;
     }
 
-    public void chainageMixte(ArrayList<Fait> baseFaits, ArrayList<Regle> baseRegles, int modeResolutioConflit, Proposition but) throws Exception {
+    public String chainageMixte(ArrayList<Fait> baseFaits, ArrayList<Regle> baseRegles, int modeResolutioConflit, Proposition but, JTextField input, JTextArea output) throws Exception {
+        String trace = "";
         ArrayList<String> questions = new ArrayList<String>();
         while (true) {
-            String resultat = chainageAvant(baseFaits, baseRegles, MoteurDI0.ARRET_SI_UN_BUT_EST_PRECISE, modeResolutioConflit, but);
-            if (resultat.equals("But non trouvé") && terminal(but,baseRegles)) {
+            String resultat = chainageAvant(baseFaits, baseRegles, MoteurDI0.ARRET_SI_UN_BUT_EST_PRECISE, modeResolutioConflit, but, output);
+            if (resultat.equals("But non trouvé") && terminal(but, baseRegles)) {
                 Regle regle = getReglePresqueDeclenchable(baseRegles, baseFaits, questions);
                 if (regle != null) {
 
                     Fait faitDemandable = null;
                     Proposition proposition = getPremisseInconnue(regle, baseFaits);
                     questions.add(proposition.getNom());
-                    String reponse = poserQuestion(proposition);
+                    String reponse = poserQuestion(proposition, input);
 
                     if (reponse.toUpperCase().equals("OUI")) {
                         faitDemandable = new Fait(proposition.getNom(), "true", "-1");
@@ -174,25 +182,25 @@ public class MoteurDI0 {
                     if (!faitDemandable.getValeur().equals("iconnu")) {
                         baseFaits.add(faitDemandable);
                         if (proposition.equals(faitDemandable))
-                            System.out.println(declencherRegle(regle, baseRegles, baseFaits));
+                            trace += declencherRegle(regle, baseRegles, baseFaits) + "\n";
                     }
 
                 } else {
-                    System.out.println("But non trouvé");
+                    trace += "But non trouvé";
                     break;
                 }
-            }else if (!terminal(but,baseRegles)){
-                System.out.println("But non trouvé");
+            } else if (!terminal(but, baseRegles)) {
+                trace += "But non trouvé";
                 break;
-            }
-            else if (resultat.contains("But trouvé")) {
-                System.out.println(resultat);
+            } else if (resultat.contains("But trouvé")) {
+                trace += resultat;
                 break;
             }
         }
+        return trace;
     }
 
-    private String poserQuestion(Proposition proposition) {
+    private String poserQuestion(Proposition proposition, JTextField input) {
         Scanner sc = new Scanner(System.in);
         String reponse;
         do {
