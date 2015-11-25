@@ -32,7 +32,8 @@ public class MoteurDI0 {
             boolean trouve = (appartient(but, baseFaits) == 0);
             do {
                 if (trouve) {
-                    trace += "But trouvé : " + but;
+                    trace = "But trouvé : " + but + "\n";
+                    output.append(trace);
                     return trace;
                 }
                 ensembleConflit = this.getEnsembleConflit(baseFaits, baseRegles);
@@ -40,15 +41,17 @@ public class MoteurDI0 {
                     Collections.sort(ensembleConflit);
                 for (int i = 0; i < ensembleConflit.size(); i++) {
                     Regle regle = ensembleConflit.get(i);
-                    trace += declencherRegle(regle, baseRegles, baseFaits) + "\n";
+                    output.append(declencherRegle(regle, baseRegles, baseFaits) + "\n");
                     trouve = (appartient(but, baseFaits) == 0);
                 }
             } while (!ensembleConflit.isEmpty() && !trouve);
             if (trouve) {
-                trace += "But trouvé : " + but;
+                trace = "But trouvé : " + but;
+                output.append(trace + "\n");
                 return trace;
             } else {
-                trace += "But non trouvé";
+                trace = "But non trouvé";
+                output.append(trace + "\n");
                 return trace;
             }
         } else if (modeChainage == MoteurDI0.SATURATION_DE_LA_BASE_DE_FAITS) {
@@ -58,11 +61,13 @@ public class MoteurDI0 {
                     Collections.sort(ensembleConflit);
                 for (int i = 0; i < ensembleConflit.size(); i++) {
                     Regle regle = ensembleConflit.get(i);
-                    trace += declencherRegle(regle, baseRegles, baseFaits) + "\n";
+                    //trace += declencherRegle(regle, baseRegles, baseFaits) + "\n";
+                    output.append(declencherRegle(regle, baseRegles, baseFaits) + "\n");
                 }
             } while (!ensembleConflit.isEmpty());
         }
-        trace += "Base saturée";
+        trace = "Base saturée";
+        output.append(trace + "\n");
         return trace;
     }
 
@@ -166,7 +171,6 @@ public class MoteurDI0 {
             if (resultat.equals("But non trouvé") && terminal(but, baseRegles)) {
                 Regle regle = getReglePresqueDeclenchable(baseRegles, baseFaits, questions);
                 if (regle != null) {
-
                     Fait faitDemandable = null;
                     Proposition proposition = getPremisseInconnue(regle, baseFaits);
                     questions.add(proposition.getNom());
@@ -181,19 +185,19 @@ public class MoteurDI0 {
                     }
                     if (!faitDemandable.getValeur().equals("iconnu")) {
                         baseFaits.add(faitDemandable);
-                        if (proposition.equals(faitDemandable))
-                            trace += declencherRegle(regle, baseRegles, baseFaits) + "\n";
+                        if (proposition.equals(faitDemandable)) {
+                            output.append(declencherRegle(regle, baseRegles, baseFaits) + "\n");
+                        }
                     }
 
                 } else {
-                    trace += "But non trouvé";
+                    output.append("But non trouvé \n");
                     break;
                 }
             } else if (!terminal(but, baseRegles)) {
-                trace += "But non trouvé";
+                output.append("But non trouvé \n");
                 break;
             } else if (resultat.contains("But trouvé")) {
-                trace += resultat;
                 break;
             }
         }
