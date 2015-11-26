@@ -140,14 +140,6 @@ public class UserInterface extends JFrame {
 
         //======== inputPnl ========
         {
-
-            // JFormDesigner evaluation mark
-            inputPnl.setBorder(new javax.swing.border.CompoundBorder(
-                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                    "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-                    javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                    java.awt.Color.red), inputPnl.getBorder())); inputPnl.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
-
             inputPnl.setLayout(new GridLayoutManager(1, 2, new Insets(0, 0, 0, 0), -1, -1));
 
             //---- butLbl ----
@@ -250,6 +242,7 @@ public class UserInterface extends JFrame {
             modeChainagePnl.setLayout(new GridLayoutManager(2, 2, new Insets(0, 0, 0, 0), -1, -1));
 
             //---- saturationRB ----
+            saturationRB.setSelected(true);
             saturationRB.setText("Saturer la base de faits");
             modeChainagePnl.add(saturationRB, new GridConstraints(0, 0, 1, 1,
                 GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE,
@@ -258,6 +251,7 @@ public class UserInterface extends JFrame {
                 null, null, null));
 
             //---- selectionPremiereRegleRB ----
+            selectionPremiereRegleRB.setSelected(true);
             selectionPremiereRegleRB.setText("Selection de la premiere regle");
             modeChainagePnl.add(selectionPremiereRegleRB, new GridConstraints(0, 1, 1, 1,
                 GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE,
