@@ -111,7 +111,9 @@ public class MoteurDI0 {
             } else if (this.appartient(conclusion, baseFaits) == -1)
                 return "Erreur : L'ajout de " + conclusion + " met la base de faits dans un etat non coherent";
         }
+        if(traceDeclenchement.contains("ET"))
         return traceDeclenchement.substring(0, traceDeclenchement.lastIndexOf("ET"));
+        return traceDeclenchement;
     }
 
     public boolean terminal(Proposition proposition, ArrayList<Regle> baseRegles) {

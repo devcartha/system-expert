@@ -7,6 +7,7 @@ package tn.insat.inteface_utilisateur;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
+import java.util.ArrayList;
 import javax.swing.*;
 
 import com.intellij.uiDesigner.core.*;
@@ -14,6 +15,7 @@ import tn.insat.base_de_connaissances.BFLoader;
 import tn.insat.base_de_connaissances.BRLoader;
 import tn.insat.moteur_d_inference.MoteurDI0;
 import tn.insat.structure.Proposition;
+import tn.insat.structure.Regle;
 
 /**
  * @author Souhail Chaouechi
@@ -23,6 +25,7 @@ public class UserInterface extends JFrame {
     private BFLoader bfLoader;
     private BRLoader brLoader;
     private MoteurDI0 moteur;
+    private ArrayList<Regle> baseRegle;
 
     public UserInterface() {
         this.bfLoader = new BFLoader();
@@ -46,6 +49,7 @@ public class UserInterface extends JFrame {
         fileChooser.showOpenDialog(null);
         try {
             brLoader.setBaseDeRegles(fileChooser.getSelectedFile());
+            this.baseRegle= (ArrayList<Regle>) brLoader.getBaseDeRegles().clone();
         } catch (Exception e1) {
             e1.printStackTrace();
         }
@@ -82,7 +86,7 @@ public class UserInterface extends JFrame {
             System.out.print(butRecherche);
         }
         try {
-            this.moteur.chainageAvant(bfLoader.getBaseDeFaits(), brLoader.getBaseDeRegles(), modeChainage, modeResolutionConflit, butRecherche, traceTA);
+            this.moteur.chainageAvant(bfLoader.getBaseDeFaits(), this.baseRegle, modeChainage, modeResolutionConflit, butRecherche, traceTA);
         } catch (Exception e1) {
             e1.printStackTrace();
         }
@@ -104,7 +108,7 @@ public class UserInterface extends JFrame {
             butRecherche = new Proposition(but, "true");
         }
         try {
-            moteur.chainageMixte(bfLoader.getBaseDeFaits(), brLoader.getBaseDeRegles(), modeResolutionConflit, butRecherche, traceTA);
+            moteur.chainageMixte(bfLoader.getBaseDeFaits(), this.baseRegle, modeResolutionConflit, butRecherche, traceTA);
         } catch (Exception e1) {
             e1.printStackTrace();
         }
